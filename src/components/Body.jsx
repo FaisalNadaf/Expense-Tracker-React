@@ -24,7 +24,7 @@ const Body = () => {
         </div>
       </div>
       <div
-        className={`shadow-2xl h-4/5 w-4/5 border border-[#71C9CE] rounded-lg `}
+        className={`shadow-2xl h-4/5 w-4/5 border border-[#71C9CE] rounded-lg overflow-auto`}
       >
         <ExpencesList />
       </div>
