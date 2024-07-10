@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Expences from "./Expences";
 import { demodata } from "../constant";
 
 const ExpencesList = () => {
+  const [data, setData] = useState(demodata);
+
   return (
     <div className="border flex items-center justify-center flex-wrap ">
-      {demodata
-        .map((e) => {
-          
-         return <Expences {...e}/>;
-        })}
+      {data.map((e) => {
+        return <Expences {...e} />;
+      })}
     </div>
   );
 };

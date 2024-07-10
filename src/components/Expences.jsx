@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { demodata } from "../constant";
 
-const Expences = ({ id,date, expence, income, description }) => {
+const Expences = ({ id, date, expence, income, description }) => {
   const [hide, setHide] = useState(false);
+  const [data, setData] = useState(demodata);
   return (
     <div className="w-[80%] border my-2 shadow rounded-lg flex items-center justify-center flex-wrap">
       <div className="w-full flex items-center justify-around">
@@ -34,7 +36,12 @@ const Expences = ({ id,date, expence, income, description }) => {
           >
             <i className="fa-regular fa-circle-xmark h-full w-full"></i>
           </button>
-          <button className="h-10 w-32 shadow-sm rounded-lg border absolute bottom-4 right-4 hover:bg-[#f75f5f] bg-[#ff0000] hover:shadow-2xl font-semibold" onClick={()=>{demodata[id-1].pop()}}>
+          <button
+            className="h-10 w-32 shadow-sm rounded-lg border absolute bottom-4 right-4 hover:bg-[#f75f5f] bg-[#ff0000] hover:shadow-2xl font-semibold"
+            onClick={() => {
+              setData(data.shift());
+            }}
+          >
             Destroy
           </button>
         </div>
