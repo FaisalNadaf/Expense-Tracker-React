@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ExpencesList from "./ExpencesList";
-import { bgcolor } from "../constant";
+import { bgcolor, demodata } from "../constant";
 
 const Body = () => {
   const [expence, setExpence] = useState(0);
   const [remaining, setRemaining] = useState(0);
   const [addhide, setaddhide] = useState(false);
+  const [data, setData] = useState(demodata);
+  const [date, setDate] = useState("");
+  const [addExpence, setaddExpence] = useState("");
+  const [addIncome, setaddIncome] = useState("");
+  const [desc, setDesc] = useState("");
 
+  useEffect(() => {
+    const totalExpence = data.reduce((acc, e) => acc + e.expence, 0);
+    const totalIncome = data.reduce((acc, e) => acc + e.income, 0);
+    setExpence(totalExpence);
+    setRemaining(totalIncome);
+  }, [data]);
   return (
     <div
       className={`relative bg-[${bgcolor.bg1}] h-screen  w-screen p-4 flex flex-wrap items-center justify-center`}
@@ -61,18 +72,18 @@ const Body = () => {
                     type="date"
                     required
                     className="w-[100%]  border border-black rounded p-2 mb-1 text-lg"
-                    onChange={(e) => settitle(e.target.value)}
+                    onChange={(e) => setDate(e.target.value)}
                   />
                 </div>
                 title
                 <div className=" flex items-center justify-between">
                   <div className=" ">
-                    <div>Expenxe</div>
+                    <div>Expence</div>
                     <input
                       type="number"
                       required
                       className="w-[100%]  border border-black rounded p-2 mb-1 text-lg"
-                      onChange={(e) => settitle(e.target.value)}
+                      onChange={(e) => setaddExpence(e.target.value)}
                     />
                   </div>
                   <div className=" ">
@@ -81,20 +92,38 @@ const Body = () => {
                       type="number"
                       required
                       className="w-[100%]  border border-black rounded p-2 mb-1 text-lg"
-                      onChange={(e) => settitle(e.target.value)}
+                      onChange={(e) => setaddIncome(e.target.value)}
                     />
                   </div>
                 </div>
-                note
+                Description
                 <textarea
                   required
                   className="w-[100%] h-[40%] border border-black rounded p-4 text-lg"
-                  onChange={(e) => setNote(e.target.value)}
+                  onChange={(e) => setDesc(e.target.value)}
                 />
               </div>
               <button
                 className="border absolute right-1 bottom-1 md:right-12 md:bottom-5 border-gray-300 px-6 py-2 rounded-lg hover:bg-[#f7d800] bg-[#ffee7e]"
-                onClick={() => {}}
+                onClick={() => {
+                  const newData = {
+                    id: data.length + 1,
+                    date,
+                    expence: Number(addExpence),
+                    income: Number(addIncome),
+                    description: desc,
+                  };
+                  setData([newData, ...data]);
+
+                  data.unshift({
+                    id: data.length + 1,
+                    date: date,
+                    expence: addExpence,
+                    income: addIncome,
+                    description: desc,
+                  });
+                  setaddhide(false);
+                }}
               >
                 Add
               </button>

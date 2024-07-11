@@ -7,8 +7,8 @@ const ExpencesList = () => {
 
   return (
     <div className="border flex items-center justify-center flex-wrap ">
-      {data.map((e) => {
-        return <Expences {...e} />;
+      {data?.map((e) => {
+        return <Expences {...e} setData={setData} />;
       })}
     </div>
   );
